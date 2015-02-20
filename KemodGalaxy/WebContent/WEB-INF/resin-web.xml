@@ -1,0 +1,11 @@
+<web-app xmlns="http://caucho.com/ns/resin">
+
+<database jndi-name='java:comp/env/jdbc/KEMOD'>
+  <driver type="org.postgresql.Driver">
+    <url>jdbc:postgresql://127.0.0.1:5432/KEMOD</url>
+    <user>kemod</user>
+    <password>kemod</password>
+  </driver>
+</database>
+
+</web-app>
