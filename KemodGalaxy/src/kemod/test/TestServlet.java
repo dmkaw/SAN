@@ -36,10 +36,10 @@ public class TestServlet extends HttpServlet {
 			out.println("<h1>Welcome!</h1>");
 		}
 		
-		Person viole = new Person("Viole", "Feetable"); 
-		Person fiona = new Person("Fiona", "Heellicker");
+		Person viole = new Person("Viole", "Feetable", "81021181425");
+		Person fiona = new Person("Fiona", "Heellicker", "63060796321");
 		
-		gu.addPerson("Jack", "Handsome");
+		gu.addPerson("Jack", "Handsome", "75060623541");
 		gu.addPerson(viole);
 		gu.addPerson(fiona);
 		
@@ -52,6 +52,8 @@ public class TestServlet extends HttpServlet {
 		Planet p6 = new Planet("Haxana");
 		p1.setName("Pixon");
 		p2.setName("Titanium");
+		p2.setRadius(75301);
+		
 		
 		gu.addPlanet(p1);
 		gu.addPlanet(p2);
@@ -59,12 +61,14 @@ public class TestServlet extends HttpServlet {
 		gu.addPlanet(p4);
 		gu.addPlanet(p5);
 		gu.addPlanet(p6);
+		gu.addPlanet(p6);
 		
 		
-		Institution ins = new Institution("IPO - Intergalaxy Planet Owners");
+		
+		Institution ins = new Institution("IPO - Intergalaxy Planet Owners", "123456789");
 		
 		gu.addInstitution(ins);
-		
+		/*
 		
 		List<Individual> owners = new ArrayList<Individual>();
 		owners.add(viole);
@@ -94,6 +98,8 @@ public class TestServlet extends HttpServlet {
 		planets3.add(p6);
 		
 		//gu.addRegistryUnion(planets3, owners3);
+		
+		*/
 		
 	}
 

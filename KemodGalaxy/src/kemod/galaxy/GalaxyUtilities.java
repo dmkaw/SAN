@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import kemod.ownership.Individual;
 import kemod.ownership.Institution;
@@ -21,12 +22,24 @@ public class GalaxyUtilities {
 	
 	
 	public void addPlanet(Planet planet){
-		em.persist(planet);
+		Query q = em.createNamedQuery("findPlanetIdByName");
+		q.setParameter("name", planet.getName());
+		
+		@SuppressWarnings("unchecked")
+		final List<Planet> planets = q.getResultList();
+		if(planets.isEmpty()) em.persist(planet);
+		// TODO: Make something in case of adding existing planet
+		System.out.println("Planet not added - already exist.");
 	}
 	
-	public void addPerson(String fName, String lName){
-		Person person = new Person(fName, lName);
-		em.persist(person);
+	public void addPlanet(String name, long radius){
+		Planet planet = new Planet(name, radius);
+		addPlanet(planet);
+	}
+	
+	public void addPerson(String fName, String lName, String pesel){
+		Person person = new Person(fName, lName, pesel);
+		addPerson(person);
 	}
 	
 	public void addPerson(Person person){

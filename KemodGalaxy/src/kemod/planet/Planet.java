@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 import kemod.ownership.RegistryUnion;
 
@@ -18,6 +19,7 @@ import kemod.ownership.RegistryUnion;
  *
  */
 @Entity
+@NamedQuery(name="findPlanetIdByName", query="select p.id from Planet p where p.name = :name")
 public class Planet implements Serializable {
 
 	
@@ -27,6 +29,9 @@ public class Planet implements Serializable {
 	
 	@Column(unique=true, nullable=false)
 	private String name;
+	
+	//Radius in kilometers
+	long radius;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="registryunion_id")
@@ -38,6 +43,12 @@ public class Planet implements Serializable {
 	public Planet(String name) {
 		this.name = name;
 	}
+	
+	public Planet(String name, long radius) {
+		this.name = name;
+		this.radius = radius;
+	}
+	
 	
 	public String getName() {
 		return name;
@@ -51,7 +62,14 @@ public class Planet implements Serializable {
 		return id;
 	}
 
-	
+	public long getRadius() {
+		return radius;
+	}
+
+	public void setRadius(long radius) {
+		this.radius = radius;
+	}
+
 	public RegistryUnion getRu() {
 		return ru;
 	}
