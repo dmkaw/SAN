@@ -1,5 +1,6 @@
 package evi.ownership;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="individuals")
+@Table(name = "INDIVIDUALS")
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class Individual {
 	
@@ -23,5 +24,41 @@ public abstract class Individual {
 	
 	@ManyToMany
 	@JoinColumn(name="registryunion_id")
-	List<RegistryUnion> ru;
+	List<RegistryUnion> ru = new ArrayList<RegistryUnion>();
+
+	public List<RegistryUnion> getRu() {
+		return ru;
+	}
+
+	public void setRu(List<RegistryUnion> ru) {
+		this.ru = ru;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Individual other = (Individual) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
+	
 }

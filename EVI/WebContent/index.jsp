@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Welcome to Kemod Galaxy!</title>
+<title>Welcome to EVI - Land and Buildings Register!</title>
 </head>
 <body>
-<h1>Welcome to Kemod Galaxy!</h1>
+<h1>Welcome to EVI - Land and Buildings Register!</h1>
 </body>
 </html>
