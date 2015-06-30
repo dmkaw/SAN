@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<resources>
-  <Resource id="EVI@postgres" type="javax.sql.DataSource">#Tue May 26 20:38:34 CEST 2015
-jdbcDriver=org.postgresql.Driver
-password=evi
-userName=evi
-jdbcUrl=jdbc\:postgresql\://localhost/EVI
-</Resource>
-</resources>
