@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="default.css" />
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <title>EVI - Land Lot Register</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="left">
+            <ui:insert name="left" >
+                <h:graphicImage url="/resources/images/evi-logo.png" />
+                <h1>Menu</h1>
+                <br/>
+                <p:button outcome="/landlot/landlot-list" value="Land lot list" />
+                <p:button outcome="/landlot/landlot" value="Add new land lot" />
+                <br/><br/>
+                <p:button outcome="/person/person-list" value="List of all persons" />
+                <p:button outcome="/person/person" value="Add new person" />
+                <br/><br/>
+                <p:button outcome="/registryunion/registryunion-list" value="Registry unions list" />
+                <p:button outcome="/registryunion/registryunion" value="Add new registry union" />
+                <br/><br/>
+                <p:button outcome="/landlot/landlot" value="dummy" />
+                <p:button outcome="/landlot/landlot" value="dummy" />
+            </ui:insert>
+        </div>
+ <!--       <div id="top_content">
+            <ui:insert name="top_content">Content</ui:insert>
+        </div>   -->
+        <div id="right"> 
+            <ui:insert name="content">
+                <div id="top_content">
+                    Welcome!
+                </div>
+            </ui:insert>
+        </div>
+
+
+
+    </h:body>
+
+</html>

@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="../index.xhtml">
+
+            <ui:define name="content">
+                <div id="top_content">
+                    <c:if test="#{personManagedBean.id eq null}">
+                        Add new person
+                    </c:if>
+                    <c:if test="#{personManagedBean.id ne null}">
+                        Edit person data
+                    </c:if>
+                </div>
+                <div id="right_content">    
+                    <h:form id="addEditPerson" class="right_content_">
+                        <p:inputText value="#{personManagedBean.id}" type="hidden" />
+                        <table>
+                            <tr>
+                                <td>
+                                    <p:outputLabel for="fName_input" value="First name" />
+                                </td>
+                                <td>
+                                    <p:inputText id="fName_input" value="#{personManagedBean.firstName}" required="true" />
+                                </td>
+                                <td>
+                                    <p:message for="fName_input"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel for="lName_input" value="Last name" />
+                                </td>
+                                <td>
+                                    <p:inputText id="lName_input" value="#{personManagedBean.lastName}" required="true" />
+                                </td>
+                                <td>
+                                    <p:message for="lName_input"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel for="pesel_input" value="PESEL" />
+                                </td>
+                                <td>
+                                    <p:inputText id="pesel_input" value="#{personManagedBean.pesel}" required="true" placeholder="11 digit number">
+                                        <f:validateLength minimum="11" maximum="11" />
+                                    </p:inputText>
+                                </td>
+                                <td>
+                                    <p:message for="pesel_input"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel for="ru_autoComplete" value="Registry union" />
+                                </td>
+                                <td>
+                                    <p:autoComplete id="ru_autoComplete" minQueryLength="3" value="#{personManagedBean.registryUnions}" forceSelection="true"
+                                                    var="regUnion" itemLabel="#{regUnion.lr.landRegisterNumber}" itemValue="#{regUnion}" multiple="true"
+                                                    completeMethod="#{registryUnionManagedBean.select}" required="false" converter="#{RegistryUnionConverter}" />
+                                    <p:tooltip id="ru_toolTip" for="ru_autoComplete" value="Enter 3 characters to see hints" trackMouse="true" />
+                                </td>
+                                <td>
+                                    <p:message id="ru_message" for="ru_autoComplete"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class="right_content_button">
+                                        <p:commandButton action="#{personManagedBean.addEditPerson}" value="Save" update="@form" />
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table> 
+                        <p:messages id="info" showDetail="true" closable="true" />
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

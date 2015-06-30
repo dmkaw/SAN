@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="../index.xhtml">
+
+            <ui:define name="content">
+                <div id="top_content">
+                    <c:if test="#{landLotManagedBean.id eq null}">
+                        Add new land lot
+                    </c:if>
+                    <c:if test="#{landLotManagedBean.id ne null}">
+                        Edit land lot
+                    </c:if>
+                </div>
+                <div id="right_content">    
+                    <h:form id="addEditLandLot" class="right_content_">
+                        <p:inputText value="#{landLotManagedBean.id}" type="hidden" />
+                        <table>
+                            <tr>
+                                <td>
+                                    <p:outputLabel for="llId_input" value="Land lot number" />
+                                </td>
+                                <td>
+                                    <p:inputText id="llId_input" value="#{landLotManagedBean.landLotId}" required="true" />
+                                </td>
+                                <td>
+                                    <p:message for="llId_input"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel for="cm_selOneMenu" value="Cadastral municipality" />
+                                </td>
+                                <td>
+                                    <p:selectOneMenu id="cm_selOneMenu" value="#{landLotManagedBean.cadastralMunicipality}" required="true" style="width:100% !important">
+                                        <f:selectItem itemLabel="Choose..." itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{landLotManagedBean.cmList}" var="cadastralMunicipality" itemLabel="#{cadastralMunicipality.name}" itemValue="#{cadastralMunicipality}"/>
+                                    </p:selectOneMenu>
+                                </td>
+                                <td>
+                                    <p:message for="cm_selOneMenu"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel for="area_input" value="Area" />
+                                </td>
+                                <td>
+                                    <p:inputText id="area_input" value="#{landLotManagedBean.area}" required="true"/>
+                                </td>
+                                <td>
+                                    <p:message for="area_input"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel for="ru_autoComplete" value="Registry union" />
+                                </td>
+                                <td>
+                                    <p:autoComplete id="ru_autoComplete" minQueryLength="3" value="#{landLotManagedBean.registryUnion}" forceSelection="true"
+                                                    var="regUnion" itemLabel="#{regUnion.lr.landRegisterNumber}" itemValue="#{regUnion}"
+                                                    completeMethod="#{registryUnionManagedBean.select}" required="false" converter="#{RegistryUnionConverter}" />
+                                    <p:tooltip id="ru_toolTip" for="ru_autoComplete" value="Enter 3 characters to see hints" trackMouse="true" />
+                                </td>
+                                <td>
+                                    <p:message id="ru_message" for="ru_autoComplete"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class="right_content_button">
+                                        <p:commandButton action="#{landLotManagedBean.addLandLot}" value="Save" update="@form" />
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table> 
+                        <p:messages id="info" showDetail="true" closable="true" />
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

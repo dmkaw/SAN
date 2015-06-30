@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="../index.xhtml">
+
+            <ui:define name="content">
+                <div id="top_content">
+                    List of all land lots
+                </div>
+                <div id="right_content">    
+                    <h:form>
+                        <p:dataTable var="landLot" value="#{landLotListManagedBean.landLotList}">
+                            <p:column headerText="Land lot number" sortBy="#{landLot.landLotId}">
+                                <h:outputText value="#{landLot.landLotId}" />
+                            </p:column>
+                            <p:column headerText="Cadastral municipality" sortBy="#{landLot.cadastralMunicipality.name}">
+                                <h:outputText value="#{landLot.cadastralMunicipality.name}" />
+                            </p:column>
+                            <p:column headerText="Area" sortBy="#{landLot.area}">
+                                <h:outputText value="#{landLot.area}" />
+                            </p:column>
+                            <p:column headerText="Land register" sortBy="#{landLot.landLotRegistryUnion.lr.landRegisterNumber}">
+                                <h:outputText value="#{landLot.landLotRegistryUnion.lr.landRegisterNumber}" />
+                            </p:column>
+                            <p:column headerText="Edit">
+                                <p:commandLink action="#{landLotManagedBean.preapreForEdit(landLot.id)}" value="Edit" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+
+
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
