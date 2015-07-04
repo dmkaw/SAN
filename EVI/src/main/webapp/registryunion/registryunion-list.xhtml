@@ -29,7 +29,7 @@
                                 <h:outputText value="#{registryUnion.owners}" />
                             </p:column>
                             <p:column headerText="Edit">
-                                <p:commandLink action="none" value="Edit" />
+                                <p:commandLink action="#{registryUnionManagedBean.preapreForEdit(registryUnion.id)}" value="Edit" />
                             </p:column>
                         </p:dataTable>
                     </h:form>

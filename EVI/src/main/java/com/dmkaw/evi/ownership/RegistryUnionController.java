@@ -47,7 +47,10 @@ public class RegistryUnionController {
         }
         RegistryUnion registryUnion = new RegistryUnion(landRegisterNumber);
         registryUnion.setLandLots(landLotList);
-        em.persist(registryUnion);
+        for(LandLot landLot : landLotList){
+            landLot.setLandLotRegistryUnion(registryUnion);
+        }
+        em.merge(registryUnion);
         return true;
     }
 

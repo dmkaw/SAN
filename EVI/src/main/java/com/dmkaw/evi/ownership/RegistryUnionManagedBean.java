@@ -11,6 +11,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -91,6 +93,18 @@ public class RegistryUnionManagedBean implements Serializable {
     }
 
     public void addEditRegistryUnion(){
-        ruc.addRegistryUnion(landRegisterNumber, chosenLandLots);
+        if (ruc.addRegistryUnion(landRegisterNumber, chosenLandLots)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Registry union succesfuly added."));
+            reset();
+        }
+    }
+
+    public void prepareForEdit(Long id){
+
+    }
+
+    private void reset() {
+        availableLandLots = ruc.findLandLotsAvailableToBind();
+        landRegisterNumber = "";
     }
 }

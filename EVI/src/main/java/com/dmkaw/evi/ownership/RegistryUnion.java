@@ -1,15 +1,14 @@
 package com.dmkaw.evi.ownership;
 
+import com.dmkaw.evi.estates.LandLot;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import com.dmkaw.evi.estates.LandLot;
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,8 @@ import java.util.List;
 @NamedQueries({@NamedQuery(name = "findRuIdByLandLotLlId", query = "select r.id from RegistryUnion r join r.landLots l"
         + " where l.landLotId = :llId"),
         @NamedQuery(name = "findAllRu", query = "SELECT ru FROM RegistryUnion ru"),
-        @NamedQuery(name = "findRuByLandRegister", query = "SELECT ru FROM RegistryUnion ru WHERE ru.lr.landRegisterNumber = :landReg")})
+        @NamedQuery(name = "findRuByLandRegister", query = "SELECT ru FROM RegistryUnion ru WHERE ru.lr.landRegisterNumber = :landReg"),
+        @NamedQuery(name = "findRuById", query = "SELECT ru FROM RegistryUnion ru WHERE ru.id = :id")})
 @Table(name = "REGISTRY_UNIONS")
 public class RegistryUnion implements Serializable {
 
@@ -29,6 +29,7 @@ public class RegistryUnion implements Serializable {
     int id;
 
     @LazyCollection(LazyCollectionOption.FALSE)
+    @Cascade(value = {CascadeType.MERGE, CascadeType.PERSIST})
     @OneToMany(mappedBy = "landLotRegistryUnion") // This makes each land lot can exist in ONLY one registry union
     List<LandLot> landLots = new ArrayList<>();
 
@@ -38,7 +39,7 @@ public class RegistryUnion implements Serializable {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "landregister_id")
-    @Cascade(CascadeType.PERSIST)
+    @Cascade(value = {CascadeType.MERGE, CascadeType.PERSIST})
     LandRegister lr;
 
     public RegistryUnion() {

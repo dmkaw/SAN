@@ -37,7 +37,6 @@ import javax.persistence.NamedQueries;
         @NamedQuery(name="findLandLotById", query="select l from LandLot l where l.id = :id"),
         @NamedQuery(name="findLandLotWithoutRegistryUnion", query="select l from LandLot l where l.landLotRegistryUnion = null")
         })
-         
 public class LandLot implements Serializable {
 
 	
