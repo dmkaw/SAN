@@ -34,8 +34,9 @@ public class TestServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		try(PrintWriter out = response.getWriter()){
-			out.println("<h1>Welcome!</h1>");
-			out.println("We will run some tests.");
+			out.println("<h1>Test data has been generated.</h1>");
+			out.println("<br/>");
+			out.println("<a href = \"javascript:history.back()\">Go back</a>");
 		}
 				
 		Person viole = new Person("Viole", "Nowak", "81021181425");

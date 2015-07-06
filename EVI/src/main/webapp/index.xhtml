@@ -30,18 +30,15 @@
                 <h:form>
                     <p:commandButton action="#{registryUnionManagedBean.prepareNewRegistryUnion()}" value="Add new registry union" ajax="false" />
                 </h:form>
-                <br/><br/>
-                <p:button outcome="/landlot/landlot" value="dummy" />
-                <p:button outcome="/landlot/landlot" value="dummy" />
             </ui:insert>
         </div>
- <!--       <div id="top_content">
-            <ui:insert name="top_content">Content</ui:insert>
-        </div>   -->
-        <div id="right"> 
+        <div id="right">
             <ui:insert name="content">
                 <div id="top_content">
                     Welcome!
+                </div>
+                <div id="right_content">
+                    To set up some basic data click <p:link href="/servlet" value="here" />.
                 </div>
             </ui:insert>
         </div>
