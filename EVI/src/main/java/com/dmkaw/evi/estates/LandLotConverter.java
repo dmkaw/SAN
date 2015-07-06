@@ -8,7 +8,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 /**
- * Created by domek on 2015-06-28.
+ * Created by Dominik on 2015-06-28.
  */
 public class LandLotConverter implements Converter {
 

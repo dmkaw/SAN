@@ -76,7 +76,7 @@ public class PersonManagedBean {
             registryUnions.addAll(removeDuplicates);
         }
         try {
-            if(id == null || id ==0){
+            if(id == null || id == 0){
                 if(pc.addPerson(firstName, lastName, pesel, registryUnions)){
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Person succesfuly added."));
                 }

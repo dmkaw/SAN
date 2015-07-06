@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -24,9 +25,12 @@ import javax.inject.Named;
 public class RegistryUnionManagedBean implements Serializable {
     
     @EJB
-    RegistryUnionController ruc;
+    RegistryUnionController registryUnionController;
 
-    private long id;
+    @Inject
+    RegistryUnionState registryUnionState;
+
+    private Long id;
 
     private String landRegisterNumber;
     
@@ -38,15 +42,14 @@ public class RegistryUnionManagedBean implements Serializable {
     
     @PostConstruct
     private void init(){
-        availableLandLots = ruc.findLandLotsAvailableToBind();
-        regUnitList = ruc.findAllRegistryUnions();
+        regUnitList = registryUnionController.findAllRegistryUnions();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -67,6 +70,8 @@ public class RegistryUnionManagedBean implements Serializable {
     }
 
     public List<LandLot> getAvailableLandLots() {
+        availableLandLots = registryUnionController.findLandLotsAvailableToBind();
+        availableLandLots.addAll(registryUnionState.getCurrentLandLotList());
         return availableLandLots;
     }
 
@@ -93,18 +98,42 @@ public class RegistryUnionManagedBean implements Serializable {
     }
 
     public void addEditRegistryUnion(){
-        if (ruc.addRegistryUnion(landRegisterNumber, chosenLandLots)) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Registry union succesfuly added."));
-            reset();
+        if(id == null || id == 0){
+            if (registryUnionController.addRegistryUnion(landRegisterNumber, chosenLandLots)) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Registry union succesfuly added."));
+                reset();
+            }
+            else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info:", "Registry union with this number already exist."));
+            }
+        }
+        else {
+            if (registryUnionController.editRegistryUnion(id, landRegisterNumber, chosenLandLots)) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Registry union succesfuly updated."));
+                reset();
+            }
+            else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info:", "Registry union with this number already exist."));
+            }
         }
     }
 
-    public void prepareForEdit(Long id){
+    public String prepareNewRegistryUnion() {
+        registryUnionState.setCurrentLandLotList(new ArrayList<>());
+        return "/registryunion/registryunion";
+    }
 
+    public String preapreForEdit(Long id){
+        RegistryUnion registryUnion = registryUnionController.findRegUnitById(id);
+        registryUnionState.setCurrentLandLotList(registryUnion.getLandLots());
+        this.id = registryUnion.getId();
+        this.landRegisterNumber = registryUnion.getLr().toString();
+        return "registryunion";
     }
 
     private void reset() {
-        availableLandLots = ruc.findLandLotsAvailableToBind();
+        availableLandLots = registryUnionController.findLandLotsAvailableToBind();
+        registryUnionState.setCurrentLandLotList(new ArrayList<>());
         landRegisterNumber = "";
     }
 }

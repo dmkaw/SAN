@@ -7,7 +7,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 /**
- * Created by domek on 2015-06-24.
+ * Created by Dominik on 2015-06-24.
  */
 @Stateless
 public class LandLotController {

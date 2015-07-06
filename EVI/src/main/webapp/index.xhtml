@@ -27,7 +27,9 @@
                 <p:button outcome="/person/person" value="Add new person" />
                 <br/><br/>
                 <p:button outcome="/registryunion/registryunion-list" value="Registry unions list" />
-                <p:button outcome="/registryunion/registryunion" value="Add new registry union" />
+                <h:form>
+                    <p:commandButton action="#{registryUnionManagedBean.prepareNewRegistryUnion()}" value="Add new registry union" ajax="false" />
+                </h:form>
                 <br/><br/>
                 <p:button outcome="/landlot/landlot" value="dummy" />
                 <p:button outcome="/landlot/landlot" value="dummy" />

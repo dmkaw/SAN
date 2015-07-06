@@ -26,7 +26,7 @@ public class RegistryUnion implements Serializable {
     @TableGenerator(name = "TABLE_GENERATOR", table = "SEQUENCE_TABLE", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_COUNT", pkColumnValue = "RU_SEQ")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GENERATOR")
-    int id;
+    Long id;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @Cascade(value = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -50,7 +50,7 @@ public class RegistryUnion implements Serializable {
         lr.setLandRegisterNumber(landRegisterNumber);
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -84,26 +84,23 @@ public class RegistryUnion implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + this.id;
-        return hash;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RegistryUnion that = (RegistryUnion) o;
+
+        if (landLots != null ? !landLots.equals(that.landLots) : that.landLots != null) return false;
+        if (owners != null ? !owners.equals(that.owners) : that.owners != null) return false;
+        return !(lr != null ? !lr.equals(that.lr) : that.lr != null);
+
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final RegistryUnion other = (RegistryUnion) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        int result = landLots != null ? landLots.hashCode() : 0;
+        result = 31 * result + (owners != null ? owners.hashCode() : 0);
+        result = 31 * result + (lr != null ? lr.hashCode() : 0);
+        return result;
     }
-
-
 }
